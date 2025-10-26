@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 ''' Multivariate Gaussian Bayesian classifier '''
-def Multivariate_Gaussian_Distribution_likelihood(x, mu, cov, ridge=1e-6):
+def Multivariate_Gaussian_Distribution_likelihood(x, mu, cov):
     d = len(x)
-    cov = cov + np.eye(d) * ridge  # 避免共變異矩陣奇異
+    cov = cov + np.eye(d)  
     diff = x - mu
     likelihood = np.exp(-0.5 * diff @ np.linalg.inv(cov) @ diff) / np.sqrt((2 * np.pi)**d * np.linalg.det(cov))
     return likelihood
 
 def Bayesian_decision_classifier(x, mu0, mu1, cov0, cov1, p0, p1):
-    l0 = Multivariate_Gaussian_Distribution_likelihood(x, mu0, cov0, ridge=1e-6)
-    l1 = Multivariate_Gaussian_Distribution_likelihood(x, mu1, cov1, ridge=1e-6)
+    l0 = Multivariate_Gaussian_Distribution_likelihood(x, mu0, cov0)
+    l1 = Multivariate_Gaussian_Distribution_likelihood(x, mu1, cov1)
     evidence = (l0 * p0) + (l1 * p1)
     posterior_0 = (l0 * p0) / evidence
     posterior_1 = (l1 * p1) / evidence
