@@ -68,7 +68,7 @@ def Forward_Selection_AUC(X_train, y_train, max_features):
     best_score = -np.inf  
 
     while remaining and len(selected) < max_features:
-        candidates = 
+        candidates = []
         for f in remaining:
             trial = selected + [f]
             score = cv_AUC_score(X_train[:, trial], y_train)
